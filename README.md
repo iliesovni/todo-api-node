@@ -36,3 +36,9 @@ npm run test:watch  # keep watching for changes while developing
 Coverage results appear under `coverage/lcov-report/index.html`. The basic tests exercise
 creation, retrieval and the search endpoint. You can add more tests in the `tests/` directory.
 
+LCOV output
+
+When you run `npm test` Jest will produce an LCOV file at `coverage/lcov.info` in addition
+to the HTML report. You can use `coverage/lcov.info` with CI tools or upload it to services
+like Coveralls, Codecov or other coverage parsers.
+
