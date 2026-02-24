@@ -35,6 +35,11 @@ app.use("/todos", todoRouter);
 //}
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+// During normal execution we start a server, but Jest sets NODE_ENV=test
+// which allows us to skip listening and avoid open handles.
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+}
 
 module.exports = app;
