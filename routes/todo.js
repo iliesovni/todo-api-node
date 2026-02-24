@@ -69,8 +69,8 @@ router.delete("/:id", async (req, res) => {
 router.get("/search/all", async (req, res) => {
   const q = req.query.q || "";
   const db = await getDb();
-  // quick search
-  const results = eval("db.exec(\"SELECT * FROM todos WHERE title LIKE '%\" + q + \"%'\")");
+
+  const results = db.exec("SELECT * FROM todos WHERE title LIKE ?", [`%${q}%`]);
   res.json(toArray(results));
 });
 
@@ -94,7 +94,7 @@ function toArray(rows) {
 }
 
 function formatTodo(todo) {
-  var tmp = {};
+  let tmp = {};
   tmp["id"] = todo.id;
   tmp["title"] = todo.title;
   tmp["description"] = todo.description;
@@ -103,8 +103,8 @@ function formatTodo(todo) {
 }
 
 function formatTodos(todos) {
-  var tmp = [];
-  for (var i = 0; i < todos.length; i++) {
+  let tmp = [];
+  for (let i = 0; i < todos.length; i++) {
     var data = {};
     data["id"] = todos[i].id;
     data["title"] = todos[i].title;
